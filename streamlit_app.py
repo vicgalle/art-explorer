@@ -13,7 +13,6 @@ def main():
     # Read in models from the data files.
     model, image_featuresl = load_model()
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    device = 'cpu'
     st.sidebar.title('Info')
 
     st.sidebar.write(
@@ -51,9 +50,9 @@ def main():
     inp = st.text_input('Or write your own query here!',
                         example, max_chars=1000)
 
-    topk = 1
     with st.beta_expander("Search options..."):
-        topk = st.slider('Select the top-k closest results', 1, 5, 1)
+        topk = st.slider('Choose the number of results (sorted by closeness to query)', 1, 5, 1)
+        radio = st.radio('Choose the art database', ('WikiArt', 'All'))
         
     st.subheader('Search results:')
 
@@ -90,9 +89,8 @@ def load_model():
     Create the torch models and load data.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    device = 'cpu'
+    
     model, preprocess = clip.load("ViT-B/32", device=device)
-
     image_featuresl = torch.load('wikiart/image_features.pt')
 
     return model, image_featuresl
