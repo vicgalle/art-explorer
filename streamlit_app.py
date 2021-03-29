@@ -76,13 +76,11 @@ def main():
     st.write('These are first four results, only one of them satisfies the query:')
     st.image(image, use_column_width=True)
 
-# Ensure that load_pg_gan_model is called only once, when the app first loads.
-
 
 @st.cache(allow_output_mutation=True)
 def load_model():
     """
-    Create the tensorflow session.
+    Create the torch models and load data.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
     device = 'cpu'
@@ -91,7 +89,6 @@ def load_model():
     image_featuresl = torch.load('wikiart/image_features.pt')
 
     return model, image_featuresl
-# Ensure that load_tl_gan_model is called only once, when the app first loads.
 
 
 if __name__ == "__main__":
