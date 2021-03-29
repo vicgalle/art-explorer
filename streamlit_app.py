@@ -88,7 +88,7 @@ def load_model():
     device = 'cpu'
     model, preprocess = clip.load("ViT-B/32", device=device)
 
-    image_featuresl = torch.load('image_features.pt')
+    image_featuresl = torch.load('wikiart/image_features.pt')
 
     return model, image_featuresl
 # Ensure that load_tl_gan_model is called only once, when the app first loads.

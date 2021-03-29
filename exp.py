@@ -20,9 +20,9 @@ if False:
         logs.append(logits_image.detach().numpy())
 
     image_features = torch.cat([torch.tensor(log) for log in logs], dim=0)
-    torch.save(image_features, 'image_features.pt')
+    torch.save(image_features, '/home/victor/wikiart/image_features.pt')
 
-image_featuresl = torch.load('image_features.pt')
+image_featuresl = torch.load('/home/victor/wikiart/image_features.pt')
 
 
 print(image_featuresl.shape)
