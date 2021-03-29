@@ -1,0 +1,12 @@
+version: '2.4'
+
+services:
+  zero-app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    ports:
+      - '8003:8003'
+    volumes:
+      - /home/victor/wikiart:/wikiart
+    restart: unless-stopped
