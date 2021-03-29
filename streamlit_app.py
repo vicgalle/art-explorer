@@ -51,6 +51,12 @@ def main():
     inp = st.text_input('Or write your own query here!',
                         example, max_chars=1000)
 
+    topk = 1
+    with st.beta_expander("Search options..."):
+        topk = st.slider('Select the top-k closest results', 1, 5, 1)
+        
+    st.subheader('Search results:')
+
     text = clip.tokenize(
         [inp]).to(device)
 
@@ -66,9 +72,10 @@ def main():
     names = np.asarray(glob.glob("wikiart/*/*"))
     print(values)
     print(names[indices.cpu().numpy()])
-
-    image = Image.open(names[indices.cpu().numpy()][0])
-    st.image(image, use_column_width=True)
+    
+    for i in range(topk):
+        image = Image.open(names[indices.cpu().numpy()][i])
+        st.image(image, width = 500)
 
     st.title("How does it compare to Google Image Search?")
     st.write('Despite our small database, the main differences start appearing when providing complex yet vague queries, such as "a cubist painting with something made of wood in it".')
